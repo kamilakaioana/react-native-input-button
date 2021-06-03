@@ -1,21 +1,66 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      nome: '',
+      input: ''     
+    };
+    
+    this.entrar = this.entrar.bind(this);
+  }
+
+  entrar(){
+    if(this.state.input === ''){
+      alert('Digite seu nome!')
+      return;
+    }
+    this.setState({nome: 'Bem vindo(a): ' + this.state.input});
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+       <TextInput
+       style={styles.input}
+       placeholder="Digite seu nome"
+       underlineColorAndroid="transparent"
+       onChangeText={ (texto)=> this.setState({input:texto}) }
+       />
+
+       <Text style={styles.texto}>{this.state.nome}</Text>
+      
+      <Button title="Entrar" onPress={this.entrar}/>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container:{
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    
   },
+  input:{
+    height: 45,
+    borderWidth: 1,
+    borderColor: '#222',
+    margin:10,
+    fontSize: 20,
+    padding: 10,
+    marginTop:40,
+  },
+  texto: {
+    textAlign: 'center',
+    fontSize:25,
+  }
 });
+
+
+export default App;
+
+
+
+
